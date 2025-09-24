@@ -19,25 +19,21 @@ spark = SparkSession.builder.getOrCreate()
 
 #============== ⬆️ Main Code ⬆️ =======================
 
-
-
-
+#==== Need the dates when the status gets changed like ordered to dispatched ========
 
 data = [
-    ("001", "Monika", "Arora", 100000, "2014-02-20", "09:00:00", "HR"),
-    ("002", "Niharika", "Verma", 300000, "2014-06-11", "09:00:00", "Admin"),
-    ("003", "Vishal", "Singhal", 300000, "2014-02-20", "09:00:00", "HR"),
-    ("004", "Amitabh", "Singh", 500000, "2014-02-20", "09:00:00", "Admin"),
-    ("005", "Vivek", "Bhati", 500000, "2014-06-11", "09:00:00", "Admin")
+    ("1","1-Jan","Ordered"),
+    ("1","2-Jan","dispatched"),
+    ("1","3-Jan","dispatched"),
+    ("1","4-Jan","Shipped"),
+    ("1","5-Jan","Shipped"),
+    ("1","6-Jan","Delivered"),
+    ("2","1-Jan","Ordered"),
+    ("2","2-Jan","dispatched"),
+    ("2","3-Jan","Shipped")
 ]
-
-
-df = spark.createDataFrame(data, ["Id","FirstName","LastName","Salary","JoiningDate","Time","Department"])
+df = spark.createDataFrame(data,["orderid","statusdate","status"])
 df.show()
 
-countdf = df.groupBy("Salary").count().filter("count>1")
-
-finaldf = df.join(countdf,"Salary","inner").select("Id", "Firstname", "Lastname", "Salary", "joiningDate", "Department")
-finaldf.show()
-
-
+dispatcheddf = df.filter("status = 'dispatched'")
+dispatcheddf.show()

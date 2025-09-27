@@ -21,7 +21,7 @@ spark = SparkSession.builder.getOrCreate()
 #============== ⬆️ Main Code ⬆️ =======================
 
 
-#===Write a query to list the unique customer names in the custtab table, along with the number of addresses associated with each customer.
+#====Write a query to list the unique customer names in the custtab table, along with the number of addresses associated with each customer.
 
 
 data = [

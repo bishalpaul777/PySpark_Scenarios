@@ -21,7 +21,7 @@ spark = SparkSession.builder.getOrCreate()
 
 
 
-
+#====Write Query to get who are getting equal salary.
 
 data = [
     ("001", "Monika", "Arora", 100000, "2014-02-20", "09:00:00", "HR"),
@@ -36,6 +36,7 @@ df = spark.createDataFrame(data, ["Id","FirstName","LastName","Salary","JoiningD
 df.show()
 
 countdf = df.groupBy("Salary").count().filter("count>1")
+countdf.show()
 
 finaldf = df.join(countdf,"Salary","inner").select("Id", "Firstname", "Lastname", "Salary", "joiningDate", "Department")
 finaldf.show()
